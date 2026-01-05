@@ -1,7 +1,5 @@
 # POEPLE - Web Developer Portfolio
 
-![Portfolio Preview](https://via.placeholder.com/800x400/6c757d/ffffff?text=POEPLE+Portfolio+Preview)
-
 > A modern portfolio for a junior web developer featuring responsive design, animations, and performance optimization.
 
 ## 🌟 Project Overview
@@ -217,3 +215,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ⭐ If this project was helpful, give it a star on GitHub!
 
 **Built with ❤️ and passion for web development**
+
