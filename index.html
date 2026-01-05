@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POEPLE - Портфолио начинающего веб-разработчика</title>
+    <meta name="description" content="Привет! Я начинающий веб-разработчик, создаю красивые и функциональные сайты. Изучаю HTML, CSS, JavaScript и современные фреймворки. Открыт к учебным проектам и стажировкам.">
+    <meta name="keywords" content="веб-разработчик, frontend, портфолио, HTML, CSS, JavaScript, React, учебные проекты, стажировка">
+    <meta name="author" content="POEPLE">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="POEPLE - Портфолио веб-разработчика">
+    <meta property="og:description" content="Привет! Я начинающий веб-разработчик, создаю красивые и функциональные сайты. Открыт к учебным проектам и стажировкам.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:image" content="https://yourwebsite.com/og-image.webp">
+    <meta property="og:image:type" content="image/webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="POEPLE">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="POEPLE - Портфолио веб-разработчика">
+    <meta name="twitter:description" content="Привет! Я начинающий веб-разработчик, создаю красивые и функциональные сайты. Открыт к учебным проектам.">
+    <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.webp">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Irish+Grover&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "POEPLE",
+        "jobTitle": "Frontend Developer",
+        "description": "Начинающий веб-разработчик, специализирующийся на создании современных веб-приложений",
+        "url": "https://yourwebsite.com",
+        "sameAs": [
+            "https://github.com/yourusername",
+            "https://linkedin.com/in/yourusername",
+            "https://t.me/yourusername"
+        ],
+        "knowsAbout": [
+            "HTML5",
+            "CSS3",
+            "JavaScript",
+            "React",
+            "Node.js",
+            "Web Development"
+        ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Skip navigation link -->
+    <a href="#main-content" class="skip-link">Перейти к основному контенту</a>
+    
+    <!-- Анимированный фон -->
+    <div class="animated-background">
+        <div class="pattern-dots"></div>
+        <div class="pattern-grid"></div>
+        <div class="pattern-diagonal"></div>
+        
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        <div class="wave-pattern"></div>
+    </div>
+    
+    <!-- Лоадер -->
+    <div class="loader" id="loader">
+        <!-- Анимированный фон для лоадера -->
+        <div class="animated-background">
+            <div class="pattern-dots"></div>
+            <div class="pattern-grid"></div>
+            <div class="floating-shapes">
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+            </div>
+        </div>
+        
+        <div class="loader-content">
+            <div class="loader-logo">POEPLE</div>
+            <div class="loader-progress">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loader-text">Загрузка...</div>
+        </div>
+    </div>
+
+    <!-- Навигация -->
+    <header class="header">
+        <nav class="nav" role="navigation" aria-label="Основная навигация">
+            <div class="nav-container">
+                <a href="index.html" class="logo">POEPLE</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active" aria-current="page">Главная</a></li>
+                    <li><a href="projects.html" class="nav-link">Проекты</a></li>
+                    <li><a href="about.html" class="nav-link">Обо мне</a></li>
+                    <li><a href="contacts.html" class="nav-link">Контакты</a></li>
+                </ul>
+                <button class="theme-toggle" aria-label="Переключить тему">
+                    <span class="theme-icon">☀️</span>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Мобильное меню" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs" aria-label="Навигационная цепочка">
+            <div class="breadcrumbs-container">
+                <ol class="breadcrumbs-list">
+                    <li class="breadcrumb-item active">
+                        <span class="breadcrumb-link">
+                            <span class="breadcrumb-home">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </span>
+                            Главная
+                        </span>
+                    </li>
+                </ol>
+            </div>
+        </nav>
+
+        <!-- Hero секция -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 id="hero-title" class="hero-title">
+                        <span class="greeting">Привет, я</span>
+                        <span class="name">Начинающий разработчик</span>
+                    </h1>
+                    <p class="hero-subtitle">Frontend разработчик в пути к мастерству</p>
+                    <p class="hero-description">
+                        Изучаю веб-разработку с увлечением и стремлением создавать красивые, функциональные сайты.
+                        Открыт к новым проектам для практики и готов применять свои знания в реальных задачах.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="projects.html" class="btn btn-primary">Мои учебные проекты</a>
+                        <a href="contacts.html" class="btn btn-secondary">Давай сотрудничать</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image-placeholder">
+                        <div class="avatar" role="img" aria-label="Разработчик за компьютером">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                                <circle cx="12" cy="8" r="2"></circle>
+                                <path d="M12 10c0 1.1-.9 2-2 2s-2-.9-2-2"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Краткая информация -->
+        <section class="info-section" aria-labelledby="info-title">
+            <div class="container">
+                <h2 id="info-title" class="visually-hidden">Ключевая информация</h2>
+                <div class="info-grid">
+                    <article class="info-card">
+                        <div class="info-icon" role="img" aria-label="Обучение">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                        </div>
+                        <h3>Обучение</h3>
+                        <p>Активно изучаю веб-разработку</p>
+                    </article>
+                    <article class="info-card">
+                        <div class="info-icon" role="img" aria-label="Проекты">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4.5 16.5c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2h-11c-1.1 0-2 .9-2 2v9z"></path>
+                                <path d="M14 4v6"></path>
+                                <path d="M18 6v4"></path>
+                                <path d="M8 6v4"></path>
+                                <path d="M10 4v2"></path>
+                            </svg>
+                        </div>
+                        <h3>Проекты</h3>
+                        <p>3+ учебных проекта</p>
+                    </article>
+                    <article class="info-card">
+                        <div class="info-icon" role="img" aria-label="Фокус">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                        </div>
+                        <h3>Фокус</h3>
+                        <p>Frontend разработка</p>
+                    </article>
+                    <article class="info-card">
+                        <div class="info-icon" role="img" aria-label="Мотивация">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </div>
+                        <h3>Мотивация</h3>
+                        <p>Стремлюсь к росту и практике</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Последние проекты -->
+        <section class="recent-projects" aria-labelledby="projects-title">
+            <div class="container">
+                <h2 id="projects-title" class="section-title">Последние проекты</h2>
+                <div class="projects-preview">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <picture>
+                                <source srcset="https://via.placeholder.com/400x300/6c757d/ffffff?text=Todo+App&format=webp" type="image/webp">
+                                <img data-src="https://via.placeholder.com/400x300/6c757d/ffffff?text=Todo+App" alt="Todo Application - скриншот приложения" class="lazy" loading="lazy">
+                            </picture>
+                        </div>
+                        <div class="project-content">
+                            <h3>Проект 1</h3>
+                            <p>Описание проекта и использованные технологии</p>
+                            <a href="projects.html" class="project-link">Подробнее →</a>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-image">
+                            <picture>
+                                <source srcset="https://via.placeholder.com/400x300/6c757d/ffffff?text=Weather+App&format=webp" type="image/webp">
+                                <img data-src="https://via.placeholder.com/400x300/6c757d/ffffff?text=Weather+App" alt="Weather Application - скриншот приложения" class="lazy" loading="lazy">
+                            </picture>
+                        </div>
+                        <div class="project-content">
+                            <h3>Проект 2</h3>
+                            <p>Описание проекта и использованные технологии</p>
+                            <a href="projects.html" class="project-link">Подробнее →</a>
+                        </div>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-image">
+                            <picture>
+                                <source srcset="https://via.placeholder.com/400x300/6c757d/ffffff?text=E+Commerce&format=webp" type="image/webp">
+                                <img data-src="https://via.placeholder.com/400x300/6c757d/ffffff?text=E+Commerce" alt="E-Commerce - скриншот приложения" class="lazy" loading="lazy">
+                            </picture>
+                        </div>
+                        <div class="project-content">
+                            <h3>Проект 3</h3>
+                            <p>Описание проекта и использованные технологии</p>
+                            <a href="projects.html" class="project-link">Подробнее →</a>
+                        </div>
+                    </article>
+                </div>
+                <div class="text-center">
+                    <a href="projects.html" class="btn btn-outline">Все проекты</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Навыки -->
+        <section class="skills-section" aria-labelledby="skills-title">
+            <div class="container">
+                <h2 id="skills-title" class="section-title">Ключевые навыки</h2>
+                <div class="skills-grid">
+                    <section class="skill-category">
+                        <h3>Frontend</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">React (изучаю)</span>
+                        </div>
+                    </section>
+                    <section class="skill-category">
+                        <h3>Backend</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Node.js (базовый)</span>
+                            <span class="skill-tag">Express.js</span>
+                            <span class="skill-tag">MongoDB</span>
+                            <span class="skill-tag">REST API</span>
+                        </div>
+                    </section>
+                    <section class="skill-category">
+                        <h3>Инструменты</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">VS Code</span>
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">npm</span>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Контакты</h3>
+                    <p>Открыт к учебным проектам и стажировкам</p>
+                    <div class="contact-links">
+                        <a href="mailto:your-email@example.com" class="contact-link">your-email@example.com</a>
+                        <a href="tel:+71234567890" class="contact-link">+7 123 456 78 90</a>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h3>Социальные сети</h3>
+                    <div class="social-links">
+                        <a href="https://github.com/yourusername" class="social-link">GitHub</a>
+                        <a href="https://linkedin.com/in/yourusername" class="social-link">LinkedIn</a>
+                        <a href="https://t.me/yourusername" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 POEPLE. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Мобильная навигация -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="mobile-menu-logo">POEPLE</div>
+            <div class="mobile-menu-subtitle">Портфолио веб-разработчика</div>
+        </div>
+        
+        <nav class="mobile-menu-nav">
+            <ul>
+                <li><a href="index.html" class="mobile-nav-link active">Главная</a></li>
+                <li><a href="projects.html" class="mobile-nav-link">Проекты</a></li>
+                <li><a href="about.html" class="mobile-nav-link">Обо мне</a></li>
+                <li><a href="contacts.html" class="mobile-nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+        
+        <div class="mobile-menu-footer">
+            <div class="mobile-theme-toggle">
+                <span>Темная тема</span>
+                <button class="theme-toggle" aria-label="Переключить тему">
+                    <span class="theme-icon">☀️</span>
+                </button>
+            </div>
+            <div class="mobile-social-links">
+                <a href="https://github.com/yourusername" aria-label="GitHub">GH</a>
+                <a href="https://linkedin.com/in/yourusername" aria-label="LinkedIn">LI</a>
+                <a href="https://t.me/yourusername" aria-label="Telegram">TG</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка "Наверх" -->
+    <button class="back-to-top" id="backToTop" aria-label="Наверх">
+        <span>↑</span>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
