@@ -18,8 +18,774 @@ window.addEventListener('load', () => {
     }
 });
 
-// Lazy Loading для изображений с поддержкой WebP
-const imageObserver = new IntersectionObserver((entries, observer) => {
+// GitHub Projects Loader
+class GitHubProjectsLoader {
+    constructor() {
+        this.username = 'overthinking-dev';
+        this.container = document.getElementById('githubProjects');
+        this.init();
+    }
+
+    async init() {
+        if (!this.container) return;
+        
+        try {
+            const repos = await this.fetchRepositories();
+            this.displayProjects(repos);
+        } catch (error) {
+            this.displayError(error);
+        }
+    }
+
+    async fetchRepositories() {
+        const response = await fetch(`https://api.github.com/users/${this.username}/repos?sort=updated&per_page=10`);
+        if (!response.ok) {
+            throw new Error('Не удалось загрузить проекты с GitHub');
+        }
+        return await response.json();
+    }
+
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        
+        // Приводим обе даты к UTC для корректного сравнения
+        const dateUTC = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+        const nowUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        const diffTime = Math.abs(nowUTC - dateUTC);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 0) return 'сегодня';
+        if (diffDays === 1) return 'вчера';
+        if (diffDays < 7) return `${diffDays} дней назад`;
+        if (diffDays < 30) return `${Math.floor(diffDays / 7)} недель назад`;
+        if (diffDays < 365) return `${Math.floor(diffDays / 30)} месяцев назад`;
+        return `${Math.floor(diffDays / 365)} лет назад`;
+    }
+
+    getLanguageColor(language) {
+        const colors = {
+            'JavaScript': '#f1e05a',
+            'TypeScript': '#2b7489',
+            'Python': '#3572A5',
+            'HTML': '#e34c26',
+            'CSS': '#563d7c',
+            'Java': '#b07219',
+            'Go': '#00ADD8',
+            'Rust': '#dea584',
+            'C++': '#f34b7d',
+            'C': '#555555',
+            'PHP': '#4F5D95',
+            'Ruby': '#701516',
+            'Swift': '#ffac45',
+            'Kotlin': '#F18E33',
+            'Dart': '#00B4AB',
+            'Shell': '#89e051',
+            'Vue': '#41b883',
+            'React': '#61dafb'
+        };
+        return colors[language] || '#858585';
+    }
+
+    createProjectCard(repo) {
+        const language = repo.language || 'Unknown';
+        const languageColor = this.getLanguageColor(language);
+        const updatedAt = this.formatDate(repo.updated_at);
+        
+        return `
+            <div class="github-project">
+                <div class="github-project-header">
+                    <a href="${repo.html_url}" class="github-project-title" target="_blank">
+                        ${repo.name}
+                    </a>
+                    <span class="github-project-date">${updatedAt}</span>
+                </div>
+                <p class="github-project-description">
+                    ${repo.description || 'Описание отсутствует'}
+                </p>
+                <div class="github-project-meta">
+                    <div class="github-project-language">
+                        <span class="language-dot" style="background: ${languageColor}"></span>
+                        <span>${language}</span>
+                    </div>
+                    <div class="github-project-stars">
+                        <span>⭐</span>
+                        <span>${repo.stargazers_count}</span>
+                    </div>
+                </div>
+                <a href="${repo.html_url}" class="github-project-link" target="_blank">
+                    Посмотреть на GitHub →
+                </a>
+            </div>
+        `;
+    }
+
+    displayProjects(repos) {
+        // Фильтруем репозитории (исключаем форки и слишком старые)
+        const filteredRepos = repos.filter(repo => 
+            !repo.fork && 
+            !repo.archived && 
+            repo.name !== this.username
+        ).slice(0, 3);
+
+        if (filteredRepos.length === 0) {
+            this.displayEmpty();
+            return;
+        }
+
+        const projectsHTML = filteredRepos.map(repo => this.createProjectCard(repo)).join('');
+        this.container.innerHTML = `
+            <div class="projects-grid">
+                ${projectsHTML}
+            </div>
+        `;
+    }
+
+    displayEmpty() {
+        this.container.innerHTML = `
+            <div class="loading-spinner">
+                <p>Проекты не найдены. <a href="https://github.com/${this.username}" target="_blank">Посмотреть на GitHub</a></p>
+            </div>
+        `;
+    }
+
+    displayError(error) {
+        console.error('GitHub Projects Error:', error);
+        this.container.innerHTML = `
+            <div class="loading-spinner">
+                <p>Не удалось загрузить проекты. <a href="https://github.com/${this.username}" target="_blank">Посмотреть на GitHub</a></p>
+            </div>
+        `;
+    }
+}
+
+// GitHub Projects Gallery Loader
+class GitHubProjectsGalleryLoader {
+    constructor() {
+        this.username = 'overthinking-dev';
+        this.container = document.getElementById('githubProjectsGallery');
+        this.filterButtons = document.querySelectorAll('.filter-btn');
+        this.projects = [];
+        this.activeFilter = 'all';
+        
+        console.log('GitHubProjectsGalleryLoader конструктор:');
+        console.log('Контейнер:', this.container);
+        console.log('Фильтры:', this.filterButtons.length);
+        
+        this.init();
+    }
+
+    async init() {
+        console.log('Начинаем инициализацию...');
+        
+        try {
+            console.log('Загружаем репозитории...');
+            const repos = await this.fetchRepositories();
+            console.log('Репозитории загружены:', repos.length);
+            
+            this.projects = repos;
+            
+            // Создаем динамические фильтры
+            console.log('Создаем динамические фильтры...');
+            this.createDynamicFilters(this.projects);
+            
+            console.log('Отображаем проекты...');
+            this.displayProjects(this.projects);
+            
+            console.log('Обновляем статистику...');
+            this.updateStats();
+            
+        } catch (error) {
+            console.error('Ошибка при инициализации:', error);
+            this.displayError(error);
+        }
+    }
+
+    async fetchRepositories() {
+        const response = await fetch(`https://api.github.com/users/${this.username}/repos?sort=updated&per_page=50`);
+        if (!response.ok) {
+            throw new Error('Не удалось загрузить проекты с GitHub');
+        }
+        const repos = await response.json();
+        
+        console.log('Загружено репозиториев:', repos.length);
+        
+        // Загружаем темы для каждого репозитория (без анализа файлов для скорости)
+        const reposWithTopics = await Promise.all(
+            repos.map(async (repo) => {
+                try {
+                    const topicsResponse = await fetch(`https://api.github.com/repos/${this.username}/${repo.name}/topics`);
+                    if (topicsResponse.ok) {
+                        const topics = await topicsResponse.json();
+                        repo.topics = topics;
+                    } else {
+                        repo.topics = [];
+                    }
+                } catch (error) {
+                    repo.topics = [];
+                }
+                return repo;
+            })
+        );
+        
+        console.log('Репозитории с темами:', reposWithTopics.length);
+        return reposWithTopics;
+    }
+
+    // Глубокий анализ структуры проекта
+    async analyzeRepository(repo) {
+        const analysis = {
+            hasPackageJson: false,
+            hasDiscordFiles: false,
+            hasFigmaFiles: false,
+            hasApiRoutes: false,
+            hasFrontendFiles: false,
+            fileStructure: []
+        };
+        
+        try {
+            // 1. Проверяем package.json
+            const packageJson = await this.fetchFile(repo, 'package.json');
+            if (packageJson) {
+                analysis.hasPackageJson = true;
+                const deps = JSON.parse(packageJson);
+                analysis.dependencies = deps.dependencies || {};
+            }
+            
+            // 2. Проверяем структуру файлов
+            const contents = await this.fetchContents(repo);
+            analysis.fileStructure = this.analyzeFileStructure(contents);
+            
+            // 3. Определяем тип проекта
+            analysis.projectType = this.determineProjectType(analysis);
+            
+        } catch (error) {
+            console.log('Не удалось проанализировать репозиторий:', repo.name);
+        }
+        
+        return analysis;
+    }
+
+    async fetchFile(repo, filename) {
+        try {
+            const response = await fetch(`https://api.github.com/repos/${this.username}/${repo.name}/contents/${filename}`);
+            if (response.ok) {
+                const file = await response.json();
+                return atob(file.content);
+            }
+        } catch (error) {
+            console.log('Не удалось загрузить файл:', filename);
+        }
+        return null;
+    }
+
+    async fetchContents(repo) {
+        try {
+            const response = await fetch(`https://api.github.com/repos/${this.username}/${repo.name}/contents`);
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (error) {
+            console.log('Не удалось загрузить содержимое репозитория:', repo.name);
+        }
+        return [];
+    }
+
+    analyzeFileStructure(contents) {
+        const structure = {
+            hasIndexHtml: false,
+            hasAppJs: false,
+            hasServerJs: false,
+            hasRoutes: false,
+            hasComponents: false,
+            hasPublic: false,
+            hasSrc: false,
+            hasFigmaFiles: false,
+            hasDiscordFiles: false
+        };
+
+        contents.forEach(item => {
+            const name = item.name.toLowerCase();
+            
+            if (name === 'index.html') structure.hasIndexHtml = true;
+            if (name === 'app.js' || name === 'main.js') structure.hasAppJs = true;
+            if (name === 'server.js' || name === 'app.js') structure.hasServerJs = true;
+            if (name === 'routes' || name === 'api') structure.hasRoutes = true;
+            if (name === 'components' || name === 'src') structure.hasComponents = true;
+            if (name === 'public' || name === 'dist') structure.hasPublic = true;
+            if (name === 'src') structure.hasSrc = true;
+            
+            if (name.includes('figma') || name.includes('.fig')) structure.hasFigmaFiles = true;
+            if (name.includes('discord') || name.includes('bot')) structure.hasDiscordFiles = true;
+        });
+
+        return structure;
+    }
+
+    determineProjectType(analysis) {
+        const { fileStructure, dependencies, hasPackageJson } = analysis;
+        
+        // Discord бот
+        if (this.hasDiscordDependencies(dependencies) || 
+            this.hasDiscordFiles(fileStructure)) {
+            return 'discord';
+        }
+        
+        // Дизайн проект
+        if (this.hasFigmaFiles(fileStructure) || 
+            this.hasDesignFiles(fileStructure)) {
+            return 'design';
+        }
+        
+        // Backend API
+        if (this.hasApiStructure(fileStructure) || 
+            this.hasBackendDependencies(dependencies)) {
+            return 'backend';
+        }
+        
+        // Full Stack
+        if (this.hasFullStackStructure(fileStructure)) {
+            return 'fullstack';
+        }
+        
+        // Frontend
+        if (this.hasFrontendStructure(fileStructure)) {
+            return 'frontend';
+        }
+        
+        return 'other'; // Новая категория для уникальных проектов
+    }
+
+    hasDiscordDependencies(dependencies) {
+        if (!dependencies) return false;
+        return Object.keys(dependencies).some(dep => 
+            dep.includes('discord') || dep.includes('discord.js') || dep.includes('discord.py')
+        );
+    }
+
+    hasDiscordFiles(fileStructure) {
+        return fileStructure.hasDiscordFiles;
+    }
+
+    hasFigmaFiles(fileStructure) {
+        return fileStructure.hasFigmaFiles;
+    }
+
+    hasDesignFiles(fileStructure) {
+        return fileStructure.hasFigmaFiles || 
+               fileStructure.hasComponents;
+    }
+
+    hasApiStructure(fileStructure) {
+        return fileStructure.hasRoutes || fileStructure.hasServerJs;
+    }
+
+    hasBackendDependencies(dependencies) {
+        if (!dependencies) return false;
+        return Object.keys(dependencies).some(dep => 
+            dep.includes('express') || dep.includes('fastify') || 
+            dep.includes('koa') || dep.includes('nestjs')
+        );
+    }
+
+    hasFullStackStructure(fileStructure) {
+        return (fileStructure.hasIndexHtml || fileStructure.hasPublic) && 
+               (fileStructure.hasServerJs || fileStructure.hasRoutes);
+    }
+
+    hasFrontendStructure(fileStructure) {
+        return fileStructure.hasIndexHtml || 
+               fileStructure.hasComponents || 
+               fileStructure.hasPublic ||
+               fileStructure.hasSrc;
+    }
+
+    createDynamicFilters(repos) {
+        const categories = new Set();
+        const categoryInfo = {};
+        
+        repos.forEach(repo => {
+            const category = this.getCategory(repo);
+            categories.add(category);
+            
+            if (!categoryInfo[category]) {
+                categoryInfo[category] = {
+                    name: this.getCategoryDisplayName(category),
+                    icon: this.getCategoryIcon(category),
+                    count: 0
+                };
+            }
+            categoryInfo[category].count++;
+        });
+        
+        // Создаем фильтры динамически
+        this.renderDynamicFilters(Array.from(categories), categoryInfo);
+    }
+
+    getCategoryDisplayName(category) {
+        const names = {
+            'discord': 'Discord Боты',
+            'design': 'Дизайн',
+            'backend': 'Backend',
+            'frontend': 'Frontend',
+            'fullstack': 'Full Stack',
+            'other': 'Другое'
+        };
+        return names[category] || category;
+    }
+
+    getCategoryIcon(category) {
+        const icons = {
+            'discord': '🤖',
+            'design': '🎨',
+            'backend': '⚙️',
+            'frontend': '💻',
+            'fullstack': '🌐',
+            'other': '📦'
+        };
+        return icons[category] || '📁';
+    }
+
+    renderDynamicFilters(categories, categoryInfo) {
+        const filtersContainer = document.querySelector('.filters');
+        if (!filtersContainer) return;
+        
+        let filtersHTML = '<button class="filter-btn active" data-filter="all">Все проекты</button>';
+        
+        categories.forEach(category => {
+            const info = categoryInfo[category];
+            filtersHTML += `<button class="filter-btn" data-filter="${category}">${info.icon} ${info.name} (${info.count})</button>`;
+        });
+        
+        filtersContainer.innerHTML = filtersHTML;
+        
+        // Переинициализируем фильтры
+        this.setupFilters();
+    }
+
+    getCategory(repo) {
+        // 1. Пытаемся определить по GitHub Topics
+        if (repo.topics && repo.topics.length > 0) {
+            return this.getCategoryFromTopics(repo.topics);
+        }
+        
+        // 2. Если нет тем - используем базовую логику
+        return this.analyzeAndCategorize(repo);
+    }
+
+    getCategoryFromTopics(topics) {
+        if (topics.includes('discord') || topics.includes('discord-bot') || topics.includes('discord.js')) {
+            return 'discord';
+        }
+        if (topics.includes('design') || topics.includes('figma') || topics.includes('ui') || topics.includes('ux') ||
+            topics.includes('portfolio') || topics.includes('website') || topics.includes('portfolio-website')) {
+            return 'design';
+        }
+        if (topics.includes('api') || topics.includes('backend') || topics.includes('server') || topics.includes('express')) {
+            return 'backend';
+        }
+        if (topics.includes('fullstack') || topics.includes('full-stack') || topics.includes('mern') || topics.includes('mean')) {
+            return 'fullstack';
+        }
+        if (topics.includes('frontend') || topics.includes('react') || topics.includes('vue') || topics.includes('angular')) {
+            return 'frontend';
+        }
+        return 'other';
+    }
+
+    analyzeAndCategorize(repo) {
+        // Если анализ не удался, используем базовую логику
+        const name = repo.name.toLowerCase();
+        const description = repo.description?.toLowerCase() || '';
+        const language = repo.language?.toLowerCase() || '';
+        
+        if (name.includes('discord') || name.includes('bot') || description.includes('discord')) {
+            return 'discord';
+        }
+        
+        // Портфолио и дизайн-сайты в категорию "Дизайн"
+        if (name.includes('portfolio') || name.includes('website') || name.includes('site') || 
+            name.includes('design') || name.includes('figma') || 
+            description.includes('portfolio') || description.includes('design') || 
+            description.includes('веб-сайт') || description.includes('сайт')) {
+            return 'design';
+        }
+        
+        if (name.includes('api') || name.includes('backend') || language.includes('node') || language.includes('python')) {
+            return 'backend';
+        }
+        
+        // Остальные фронтенд проекты
+        if (language.includes('html') || language.includes('css') || language.includes('javascript')) {
+            return 'frontend';
+        }
+        
+        return 'other';
+    }
+
+    updateStats() {
+        const stats = this.calculateStats(this.projects);
+        this.displayStats(stats);
+        this.displayLanguageStats(stats.languages);
+    }
+
+    calculateStats(repos) {
+        // Фильтруем только оригинальные репозитории (без форков)
+        const originalRepos = repos.filter(repo => !repo.fork);
+        
+        const languages = {};
+        originalRepos.forEach(repo => {
+            if (repo.language) {
+                languages[repo.language] = (languages[repo.language] || 0) + 1;
+            }
+        });
+
+        return {
+            totalRepos: originalRepos.length,
+            totalStars: originalRepos.reduce((sum, repo) => sum + repo.stargazers_count, 0),
+            totalForks: originalRepos.reduce((sum, repo) => sum + repo.forks_count, 0),
+            languages: Object.entries(languages)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5)
+                .map(([lang, count]) => ({ language: lang, count }))
+        };
+    }
+
+    displayStats(stats) {
+        console.log('Отображаем статистику:', stats);
+        
+        const totalReposEl = document.getElementById('totalRepos');
+        const totalStarsEl = document.getElementById('totalStars');
+        const totalForksEl = document.getElementById('totalForks');
+        
+        console.log('Элементы статистики:', {
+            totalRepos: totalReposEl,
+            totalStars: totalStarsEl,
+            totalForks: totalForksEl
+        });
+        
+        if (totalReposEl) {
+            totalReposEl.textContent = stats.totalRepos;
+            console.log('Установлено количество проектов:', stats.totalRepos);
+        }
+        if (totalStarsEl) {
+            totalStarsEl.textContent = stats.totalStars;
+            console.log('Установлено количество звезд:', stats.totalStars);
+        }
+        if (totalForksEl) {
+            totalForksEl.textContent = stats.totalForks;
+            console.log('Установлено количество форков:', stats.totalForks);
+        }
+    }
+
+    displayLanguageStats(languages) {
+        console.log('Отображаем языки, количество:', languages.length);
+        
+        const languagesGrid = document.getElementById('languagesGrid');
+        console.log('Контейнер языков:', languagesGrid);
+        
+        if (!languagesGrid) {
+            console.log('Контейнер языков не найден!');
+            return;
+        }
+
+        if (languages.length === 0) {
+            languagesGrid.innerHTML = '<p>Языки не найдены</p>';
+            return;
+        }
+
+        const maxCount = Math.max(...languages.map(l => l.count));
+        const languagesHTML = languages.map(({ language, count }) => {
+            const percentage = (count / maxCount) * 100;
+            return '<div class="language-stat">' +
+                '<div class="language-bar">' +
+                '<div class="language-progress" style="width: ' + percentage + '%"></div>' +
+                '</div>' +
+                '<div class="language-info">' +
+                '<span class="language-name">' + language + '</span>' +
+                '<span class="language-count">' + count + ' проект' + (count > 1 ? 'ов' : '') + '</span>' +
+                '</div>' +
+                '</div>';
+        }).join('');
+
+        languagesGrid.innerHTML = languagesHTML;
+        console.log('Языки отображены успешно');
+    }
+
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        
+        // Приводим обе даты к UTC для корректного сравнения
+        const dateUTC = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+        const nowUTC = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        const diffTime = Math.abs(nowUTC - dateUTC);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 0) return 'сегодня';
+        if (diffDays === 1) return 'вчера';
+        if (diffDays < 7) return `${diffDays} дней назад`;
+        if (diffDays < 30) return `${Math.floor(diffDays / 7)} недель назад`;
+        if (diffDays < 365) return `${Math.floor(diffDays / 30)} месяцев назад`;
+        return `${Math.floor(diffDays / 365)} лет назад`;
+    }
+
+    getLanguageColor(language) {
+        const colors = {
+            'JavaScript': '#f1e05a',
+            'TypeScript': '#2b7489',
+            'Python': '#3572A5',
+            'HTML': '#e34c26',
+            'CSS': '#563d7c',
+            'Java': '#b07219',
+            'Go': '#00ADD8',
+            'Rust': '#dea584',
+            'C++': '#f34b7d',
+            'C': '#555555',
+            'PHP': '#4F5D95',
+            'Ruby': '#701516',
+            'Swift': '#ffac45',
+            'Kotlin': '#F18E33',
+            'Dart': '#00B4AB',
+            'Shell': '#89e051',
+            'Vue': '#41b883',
+            'React': '#61dafb',
+            'Node.js': '#339933',
+            'Discord.js': '#5865F2'
+        };
+        return colors[language] || '#858585';
+    }
+
+    createProjectCard(repo) {
+        const language = repo.language || 'Unknown';
+        const languageColor = this.getLanguageColor(language);
+        const updatedAt = this.formatDate(repo.updated_at);
+        const category = this.getCategory(repo);
+        
+        return `
+            <div class="project-item" data-category="${category}">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-info">
+                            <h3 class="project-title">
+                                <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                            </h3>
+                            <div class="project-meta">
+                                <span class="project-language" style="color: ${languageColor}">
+                                    <span class="language-dot" style="background: ${languageColor}"></span>
+                                    ${language}
+                                </span>
+                                <span class="project-date">${updatedAt}</span>
+                            </div>
+                        </div>
+                        <div class="project-stats">
+                            ${repo.stargazers_count > 0 ? `<span class="stat">⭐ ${repo.stargazers_count}</span>` : ''}
+                            ${repo.forks_count > 0 ? `<span class="stat">🔀 ${repo.forks_count}</span>` : ''}
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        ${repo.description || 'Описание отсутствует'}
+                    </p>
+                    <div class="project-footer">
+                        <div class="project-tags">
+                            ${repo.fork ? '<span class="project-tag">Fork</span>' : ''}
+                            ${repo.archived ? '<span class="project-tag">Archived</span>' : ''}
+                        </div>
+                        <a href="${repo.html_url}" class="project-link" target="_blank">
+                            Посмотреть на GitHub →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    displayProjects(projects) {
+        const filteredProjects = this.filterProjects(projects);
+        
+        if (filteredProjects.length === 0) {
+            this.container.innerHTML = `
+                <div class="loading-spinner">
+                    <p>Проекты не найдены. <a href="https://github.com/${this.username}" target="_blank">Посмотреть на GitHub</a></p>
+                </div>
+            `;
+            return;
+        }
+
+        const projectsHTML = filteredProjects.map(repo => this.createProjectCard(repo)).join('');
+        this.container.innerHTML = `
+            <div class="projects-grid">
+                ${projectsHTML}
+            </div>
+        `;
+    }
+
+    filterProjects(projects) {
+        if (this.activeFilter === 'all') {
+            return projects.filter(repo => !repo.fork && !repo.archived);
+        }
+        
+        return projects.filter(repo => {
+            const category = this.getCategory(repo);
+            return category === this.activeFilter && !repo.fork && !repo.archived;
+        });
+    }
+
+    setupFilters() {
+        console.log('Настраиваем фильтры, кнопок найдено:', this.filterButtons.length);
+        
+        if (this.filterButtons.length === 0) {
+            console.log('Фильтры не найдены, пропускаем настройку');
+            return;
+        }
+        
+        this.filterButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Удаляем active у всех кнопок
+                this.filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Добавляем active к нажатой кнопке
+                e.target.classList.add('active');
+                
+                this.activeFilter = e.target.dataset.filter;
+                console.log('Фильтр изменен на:', this.activeFilter);
+                this.displayProjects(this.projects);
+            });
+        });
+    }
+
+    displayError(error) {
+        console.error('GitHub Projects Gallery Error:', error);
+        this.container.innerHTML = `
+            <div class="loading-spinner">
+                <p>Не удалось загрузить проекты. <a href="https://github.com/${this.username}" target="_blank">Посмотреть на GitHub</a></p>
+            </div>
+        `;
+    }
+}
+
+// Инициализируем загрузчики проектов
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM загружен, инициализация загрузчиков проектов...');
+    
+    // Инициализация для главной страницы
+    const mainContainer = document.getElementById('githubProjects');
+    if (mainContainer) {
+        console.log('Контейнер главной страницы найден, создаем GitHubProjectsLoader...');
+        new GitHubProjectsLoader();
+    }
+    
+    // Инициализация для страницы проектов
+    const galleryContainer = document.getElementById('githubProjectsGallery');
+    if (galleryContainer) {
+        console.log('Контейнер галереи найден, создаем GitHubProjectsGalleryLoader...');
+        new GitHubProjectsGalleryLoader();
+    }
+});
+
+// Lazy loading для изображений
+const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const picture = entry.target.closest('picture');
@@ -39,7 +805,7 @@ const imageObserver = new IntersectionObserver((entries, observer) => {
             
             img.classList.remove('lazy');
             img.classList.add('loaded');
-            observer.unobserve(img);
+            imageObserver.unobserve(img);
         }
     });
 }, {
@@ -380,6 +1146,12 @@ function initMobileNavigation() {
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    
+    // Проверяем, что все элементы существуют
+    if (!mobileMenuToggle || !mobileMenu || !mobileMenuOverlay) {
+        console.log('Мобильная навигация: элементы не найдены, пропускаем инициализацию');
+        return;
+    }
     
     let isMenuOpen = false;
     

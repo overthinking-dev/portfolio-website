@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проекты - Портфолио</title>
+    <title>Проекты</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,8 +73,6 @@
                 <ul class="nav-menu">
                     <li><a href="index.html" class="nav-link">Главная</a></li>
                     <li><a href="projects.html" class="nav-link active">Проекты</a></li>
-                    <li><a href="about.html" class="nav-link">Обо мне</a></li>
-                    <li><a href="contacts.html" class="nav-link">Контакты</a></li>
                 </ul>
                 <button class="theme-toggle" aria-label="Переключить тему">
                     <span class="theme-icon">☀️</span>
@@ -116,9 +114,9 @@
         <section class="projects-hero">
             <div class="container">
                 <div class="projects-hero-content">
-                    <h1 class="projects-hero-title">Мои учебные проекты</h1>
+                    <h1 class="projects-hero-title">Мои проекты</h1>
                     <p class="projects-hero-description">
-                        Коллекция проектов, созданных в процессе обучения. Каждый проект - это шаг к мастерству в веб-разработке.
+                        Будущая коллекция проектов в веб-разработке, Discord ботах и дизайне. Каждый проект - это шаг к изучению чего-то нового в разнообразных сферах.
                     </p>
                 </div>
             </div>
@@ -129,10 +127,11 @@
             <div class="container">
                 <div class="filters">
                     <button class="filter-btn active" data-filter="all">Все проекты</button>
-                    <button class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button class="filter-btn" data-filter="discord">Discord Боты</button>
+                    <button class="filter-btn" data-filter="design">Дизайн</button>
                     <button class="filter-btn" data-filter="backend">Backend</button>
-                    <button class="filter-btn" data-filter="fullstack">Full Stack</button>
-                    <button class="filter-btn" data-filter="practice">Практика</button>
+                    <button class="filter-btn" data-filter="frontend">Frontend</button>
+                    <button class="filter-btn" data-filter="other">Другое</button>
                 </div>
             </div>
         </section>
@@ -140,223 +139,62 @@
         <!-- Галерея проектов -->
         <section class="projects-gallery">
             <div class="container">
-                <div class="projects-grid">
-                    <!-- Проект 1 -->
-                    <div class="project-item" data-category="frontend practice">
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="https://via.placeholder.com/400x300/6c757d/ffffff?text=Todo+App" alt="Todo Application">
-                                <div class="project-overlay">
-                                    <button class="project-view-btn" data-project="1">Смотреть проект</button>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-tags">
-                                    <span class="project-tag">HTML/CSS</span>
-                                    <span class="project-tag">JavaScript</span>
-                                </div>
-                                <h3 class="project-title">Todo Application</h3>
-                                <p class="project-description">
-                                    Интерактивное приложение для управления задачами с локальным хранилищем. 
-                                    Первый проект с использованием JavaScript DOM манипуляций.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-item">HTML5</span>
-                                    <span class="tech-item">CSS3</span>
-                                    <span class="tech-item">Vanilla JS</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Проект 2 -->
-                    <div class="project-item" data-category="frontend practice">
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="https://via.placeholder.com/400x300/6c757d/ffffff?text=Weather+App" alt="Weather Application">
-                                <div class="project-overlay">
-                                    <button class="project-view-btn" data-project="2">Смотреть проект</button>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-tags">
-                                    <span class="project-tag">API</span>
-                                    <span class="project-tag">JavaScript</span>
-                                </div>
-                                <h3 class="project-title">Weather Application</h3>
-                                <p class="project-description">
-                                    Приложение для получения погоды по геолокации с использованием внешнего API. 
-                                    Работа с асинхронными запросами и обработка данных.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-item">HTML5</span>
-                                    <span class="tech-item">CSS3</span>
-                                    <span class="tech-item">Fetch API</span>
-                                    <span class="tech-item">OpenWeather API</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Проект 3 -->
-                    <div class="project-item" data-category="backend practice">
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="https://via.placeholder.com/400x300/6c757d/ffffff?text=Blog+API" alt="Blog API">
-                                <div class="project-overlay">
-                                    <button class="project-view-btn" data-project="3">Смотреть проект</button>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-tags">
-                                    <span class="project-tag">Node.js</span>
-                                    <span class="project-tag">API</span>
-                                </div>
-                                <h3 class="project-title">Blog API</h3>
-                                <p class="project-description">
-                                    RESTful API для блога с CRUD операциями. 
-                                    Первый опыт работы с серверной частью и базой данных.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-item">Node.js</span>
-                                    <span class="tech-item">Express.js</span>
-                                    <span class="tech-item">MongoDB</span>
-                                    <span class="tech-item">REST API</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Проект 4 -->
-                    <div class="project-item" data-category="fullstack practice">
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="https://via.placeholder.com/400x300/6c757d/ffffff?text=E+Commerce" alt="E-Commerce Mini">
-                                <div class="project-overlay">
-                                    <button class="project-view-btn" data-project="4">Смотреть проект</button>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-tags">
-                                    <span class="project-tag">Full Stack</span>
-                                    <span class="project-tag">React</span>
-                                </div>
-                                <h3 class="project-title">E-Commerce Mini</h3>
-                                <p class="project-description">
-                                    Упрощенный интернет-магазин с корзиной и админ-панелью. 
-                                    Комплексный проект с frontend и backend частями.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-item">React (изучаю)</span>
-                                    <span class="tech-item">Node.js</span>
-                                    <span class="tech-item">Express.js</span>
-                                    <span class="tech-item">MongoDB</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Проект 5 -->
-                    <div class="project-item" data-category="frontend practice">
-                        <div class="project-card">
-                            <div class="project-image">
-                                <img src="https://via.placeholder.com/400x300/6c757d/ffffff?text=Portfolio" alt="Portfolio Website">
-                                <div class="project-overlay">
-                                    <button class="project-view-btn" data-project="5">Смотреть проект</button>
-                                </div>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-tags">
-                                    <span class="project-tag">Portfolio</span>
-                                    <span class="project-tag">Responsive</span>
-                                </div>
-                                <h3 class="project-title">Portfolio Website</h3>
-                                <p class="project-description">
-                                    Адаптивный сайт-портфолио с современным дизайном и анимациями. 
-                                    Проект с фокусом на CSS и responsive дизайне.
-                                </p>
-                                <div class="project-tech">
-                                    <span class="tech-item">HTML5</span>
-                                    <span class="tech-item">CSS3</span>
-                                    <span class="tech-item">JavaScript</span>
-                                    <span class="tech-item">Responsive Design</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="projects-grid" id="githubProjectsGallery">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Загрузка проектов с GitHub...</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Статистика -->
+            </section>
+        
+        <!-- Статистика GitHub -->
         <section class="stats-section">
             <div class="container">
-                <div class="stats-grid">
+                <div class="stats-grid" id="githubStats">
                     <div class="stat-item">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Завершенных проектов</div>
+                        <div class="stat-number" id="totalRepos">0</div>
+                        <div class="stat-label">Проектов на GitHub</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">10+</div>
-                        <div class="stat-label">Использованных технологий</div>
+                        <div class="stat-number" id="totalStars">0</div>
+                        <div class="stat-label">Звездочек</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalForks">0</div>
+                        <div class="stat-label">Форков</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">100+</div>
                         <div class="stat-label">Часов кодинга</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Желание учиться</div>
+                </div>
+                <div class="languages-stats" id="languagesStats">
+                    <h3>Самые используемые языки</h3>
+                    <div class="languages-grid" id="languagesGrid">
+                        <div class="loading-spinner">
+                            <div class="spinner"></div>
+                            <p>Загрузка статистики...</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-    </main>
-
-    <!-- Модальное окно проекта -->
-    <div class="project-modal" id="projectModal">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <div class="modal-body">
-                <div class="modal-image">
-                    <img src="" alt="" id="modalImage">
-                </div>
-                <div class="modal-info">
-                    <h2 class="modal-title" id="modalTitle"></h2>
-                    <div class="modal-tags" id="modalTags"></div>
-                    <p class="modal-description" id="modalDescription"></p>
-                    <div class="modal-tech">
-                        <h4>Технологии:</h4>
-                        <div class="tech-list" id="modalTech"></div>
-                    </div>
-                    <div class="modal-links">
-                        <a href="#" class="btn btn-primary" id="modalDemo" target="_blank">Демо</a>
-                        <a href="#" class="btn btn-outline" id="modalGithub" target="_blank">GitHub</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</main>
 
     <!-- Футер -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-info">
-                    <h3>Контакты</h3>
-                    <p>Открыт к учебным проектам и стажировкам</p>
-                    <div class="contact-links">
-                        <a href="mailto:your-email@example.com" class="contact-link">your-email@example.com</a>
-                        <a href="tel:+71234567890" class="contact-link">+7 123 456 78 90</a>
-                    </div>
-                </div>
                 <div class="footer-social">
                     <h3>Социальные сети</h3>
                     <div class="social-links">
                         <a href="https://github.com/yourusername" class="social-link">GitHub</a>
-                        <a href="https://linkedin.com/in/yourusername" class="social-link">LinkedIn</a>
+                        <a href="https://steamcommunity.com/id/nnvinternete/" class="social-link">Steam</a>
                         <a href="https://t.me/yourusername" class="social-link">Telegram</a>
+                        <a href="https://t.me/nnvinternete" class="social-link">LifeTelegram</a>
+                        <a href="https://www.twitch.tv/nnvinternete" class="social-link">Twitch</a>
+                        <a href="https://www.youtube.com/@nnvinternete" class="social-link">YouTube</a>
                     </div>
                 </div>
             </div>

@@ -344,6 +344,29 @@
   transition: all 0.3s ease;
 }
 
+.avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px var(--shadow);
+  position: relative;
+  z-index: 2;
+}
+
+.hero-image-placeholder:hover .avatar-img {
+  border-color: var(--accent-hover);
+  transform: scale(1.05);
+  box-shadow: 0 12px 32px var(--shadow);
+}
+
+.hero-image-placeholder:hover .avatar-ring {
+  border-top-color: var(--accent-hover);
+  border-right-color: var(--accent-hover);
+}
+
 .hero-image-placeholder:hover .avatar svg {
   color: var(--accent);
   transform: scale(1.05);
@@ -516,12 +539,709 @@
   height: 100%;
 }
 
+/* Загрузчик для GitHub проектов */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--bg-tertiary);
+  border-top: 4px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* GitHub проекты */
+.github-project {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.github-project::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-accent);
+}
+
+.github-project:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--shadow);
+  border-color: var(--accent);
+}
+
+.github-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.github-project-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.github-project-title:hover {
+  color: var(--accent);
+}
+
+.github-project-date {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.github-project-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.github-project-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.github-project-language {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.language-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.github-project-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.github-project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.github-project-link:hover {
+  color: var(--accent-hover);
+  gap: 12px;
+}
+
+/* Языки программирования */
+.language-javascript { background: #f1e05a; }
+.language-typescript { background: #2b7489; }
+.language-python { background: #3572A5; }
+.language-html { background: #e34c26; }
+.language-css { background: #563d7c; }
+.language-java { background: #b07219; }
+.language-go { background: #00ADD8; }
+.language-rust { background: #dea584; }
+.language-cpp { background: #f34b7d; }
+.language-c { background: #555555; }
+.language-php { background: #4F5D95; }
+.language-ruby { background: #701516; }
+.language-swift { background: #ffac45; }
+.language-kotlin { background: #F18E33; }
+.language-dart { background: #00B4AB; }
+
+/* Сетка проектов */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+/* Адаптивность для проектов */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .github-project {
+    padding: 20px;
+  }
+  
+  .github-project-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .github-project-title {
+    font-size: 1.1rem;
+  }
+  
+  .github-project-meta {
+    gap: 12px;
+  }
+}
+
+/* Статистика GitHub */
+.stats-section {
+  padding: 80px 0;
+  background: var(--bg-secondary);
+  position: relative;
+}
+
+.stats-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--texture-noise);
+  pointer-events: none;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-accent);
+}
+
+.stat-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px var(--shadow);
+  border-color: var(--accent);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: block;
+  animation: countUp 1s ease-out;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Статистика языков */
+.languages-stats {
+  position: relative;
+  z-index: 2;
+}
+
+.languages-stats h3 {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+}
+
+.languages-grid {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.language-stat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.language-stat:hover {
+  transform: translateX(8px);
+  border-color: var(--accent);
+}
+
+.language-bar {
+  width: 100px;
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.language-progress {
+  height: 100%;
+  background: var(--gradient-accent);
+  border-radius: 4px;
+  transition: width 1s ease-out;
+  position: relative;
+}
+
+.language-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.language-info {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.language-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.language-count {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Адаптивность для статистики */
+@media (max-width: 768px) {
+  .stats-section {
+    padding: 60px 0;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  
+  .languages-stats h3 {
+    font-size: 1.5rem;
+  }
+  
+  .language-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  
+  .language-bar {
+    width: 100%;
+    height: 6px;
+  }
+  
+  .language-info {
+    width: 100%;
+  }
+}
+
+/* Минималистичные карточки проектов */
+.project-item {
+  margin-bottom: 1.5rem;
+}
+
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-acent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover::before {
+  transform: scaleX(1);
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--shadow);
+  border-color: var(--accent);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.project-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.project-title a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.project-title a:hover {
+  color: var(--accent);
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.project-language {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.language-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.project-date {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+.project-stats {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.stat {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.project-description {
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-line-clamp: 3;
+  -moz-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.project-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.project-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.project-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.project-link:hover {
+  color: var(--accent-hover);
+  gap: 0.5rem;
+}
+
+/* Стили для категории Other */
+.project-item[data-category="other"] .project-card::before {
+  background: linear-gradient(90deg, #858585 0%, #666666 100%);
+}
+
+.project-item[data-category="other"] .project-card:hover {
+  border-color: #858585;
+}
+
+.project-item[data-category="other"] .project-link:hover {
+  color: #858585;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .project-stats {
+    align-self: flex-end;
+  }
+  
+  .project-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .project-link {
+    align-self: flex-end;
+  }
+}
+
+/* Заглушки проектов */
+.project-placeholder {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.project-icon {
+  text-align: center;
+  z-index: 2;
+}
+
+.project-language {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.project-placeholder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.project-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-image:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-view-btn {
+  background: var(--accent);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  transform: translateY(10px);
+}
+
+.project-image:hover .project-view-btn {
+  transform: translateY(0);
+}
+
+.project-view-btn:hover {
+  background: var(--accent-hover);
+  transform: scale(1.05);
+}
+
 /* Кнопки */
 .btn {
   transform: translateY(0);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+}
+
+.btn.btn-outline {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.btn.btn-outline:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--shadow);
 }
 
 .btn::before {
@@ -927,6 +1647,45 @@ body.loaded {
   font-size: 5rem;
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border: 3px solid transparent;
+  border-top: 3px solid var(--accent);
+  border-right: 3px solid var(--accent);
+  border-radius: 50%;
+  animation: rotateRing 2s linear infinite;
+  z-index: 1;
+}
+
+.avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--accent);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px var(--shadow);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes rotateRing {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 /* Кнопки */
@@ -1286,16 +2045,24 @@ body.loaded {
 }
 
 .footer-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  text-align: center;
   margin-bottom: 2rem;
 }
 
-.footer-info h3,
+.footer-social {
+  margin-bottom: 2rem;
+}
+
 .footer-social h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   color: var(--text-primary);
+}
+
+.footer-social .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .footer-info p {
@@ -2627,6 +3394,11 @@ body.loaded {
   font-size: 8rem;
 }
 
+.avatar-img-large {
+  width: 160px;
+  height: 160px;
+}
+
 /* Секция истории */
 .story-section {
   padding: 80px 0;
@@ -2892,6 +3664,16 @@ body.loaded {
   
   .avatar-large {
     font-size: 6rem;
+  }
+  
+  .avatar-img-large {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .avatar-ring-large {
+    width: 160px;
+    height: 160px;
   }
   
   .story-content {
